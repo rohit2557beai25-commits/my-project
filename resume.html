@@ -18,17 +18,6 @@
             margin-bottom: 22px;
         }
         
-        .form-label {
-            display: block;
-            font-family: var(--font-heading);
-            font-size: 0.65rem;
-            letter-spacing: 3px;
-            color: var(--accent);
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            opacity: 0.8;
-        }
-        
         .form-input {
             width: 100%;
             background: rgba(0, 255, 255, 0.04);
@@ -44,7 +33,7 @@
         
         .form-input:focus {
             border-color: var(--accent);
-            background: rgba(0, 255, 255, 0.07);
+            background: rgba(2, 2, 3, 0.07);
             box-shadow: 0 0 10px var(--accent-dim);
         }
         
@@ -82,7 +71,7 @@
         }
         
         .generate-btn:hover {
-            background: white;
+            background: rgb(242, 109, 109);
             box-shadow: 0 0 35px rgba(255, 255, 255, 0.3);
             transform: translateY(-2px);
         }
@@ -121,37 +110,34 @@
 
 <body>
 
-    <!-- NAVBAR -->
+
     <nav>
         <h2 id="logo">AI<span>Portfolio</span></h2>
         <ul id="navLinks">
             <li><a href="index.html">Home</a></li>
-            <li><a href="team.html">Team</a></li>
             <li><a href="contact.html">Contact</a></li>
         </ul>
+
         <button id="hamburger" aria-label="Toggle menu">&#9776;</button>
     </nav>
 
-    <!-- MINI HERO -->
+
     <section id="home" style="min-height: 35vh; padding-top: 70px;">
         <div class="hero-glow"></div>
         <div class="grid-overlay"></div>
         <div class="hero-content">
-            <p class="hero-label">AI Powered</p>
-            <h1 id="mainHeading">Create Your <span>Resume</span></h1>
-            <p id="subText">Fill in your details and let AI generate your portfolio!</p>
+            <h1 id="mainHeading">Create Your <span>Portfolio</span></h1>
+            <p id="subText">Fill in your details and let we generate your portfolio!</p>
         </div>
     </section>
 
-    <!-- RESUME FORM SECTION -->
     <section id="resume">
         <div class="section-tag">Your Details</div>
         <h2>Fill Your Information</h2>
 
         <div class="resume-form">
 
-            <!-- Personal Info -->
-            <p class="section-title">👤 Personal Information</p>
+            <p class="section-title"> Personal Information--></p>
             <div class="form-row">
                 <div class="form-group">
                     <label class="form-label">Full Name</label>
@@ -176,8 +162,7 @@
 
             <hr class="divider">
 
-            <!-- Education -->
-            <p class="section-title">🎓 Education</p>
+            <p class="section-title"> Education--></p>
             <div class="form-row">
                 <div class="form-group">
                     <label class="form-label">Degree / Course</label>
@@ -202,8 +187,7 @@
 
             <hr class="divider">
 
-            <!-- Skills -->
-            <p class="section-title">⚡ Skills</p>
+            <p class="section-title"> Skills--></p>
             <div class="form-group">
                 <label class="form-label">Technical Skills</label>
                 <input type="text" class="form-input" placeholder="e.g. HTML, CSS, Python, ML">
@@ -215,8 +199,8 @@
 
             <hr class="divider">
 
-            <!-- Projects -->
-            <p class="section-title">🚀 Projects</p>
+
+            <p class="section-title"> Projects--></p>
             <div class="form-group">
                 <label class="form-label">Project 1 Name</label>
                 <input type="text" class="form-input" placeholder="e.g. AI Team Portfolio Website">
@@ -237,21 +221,19 @@
 
             <hr class="divider">
 
-            <!-- About Yourself -->
-            <p class="section-title">💡 About Yourself</p>
+
+            <p class="section-title"> About Yourself</p>
             <div class="form-group">
                 <label class="form-label">Bio / Summary</label>
                 <textarea class="form-input" placeholder="Write a short bio about yourself..."></textarea>
             </div>
 
-            <!-- Generate Button -->
-            <button class="generate-btn">⚡ Generate My Resume</button>
-            <p class="js-note">🚀 AI generation coming (JavaScript)</p>
+            <button class="generate-btn"> Generate My Portfolio</button>
+            <p class="js-note"> AI generation coming (JavaScript)</p>
 
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
         <p>©️ 2026 <span>AI Team Portfolio</span> | All Rights Reserved</p>
     </footer>
