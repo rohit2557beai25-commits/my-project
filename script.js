@@ -1,5 +1,6 @@
+// ── NAVBAR ──
 const hamburger = document.getElementById('hamburger');
-const navLinks = document.getElementById('navLinks');
+const navLinks  = document.getElementById('navLinks');
 
 if (hamburger) {
     hamburger.addEventListener('click', () => {
@@ -15,18 +16,17 @@ if (hamburger) {
 const sendBtn = document.getElementById('sendBtn');
 if (sendBtn) {
     sendBtn.addEventListener('click', () => {
-        const name = document.getElementById('contactName') ? .value.trim();
-        const email = document.getElementById('contactEmail') ? .value.trim();
-        const msg = document.getElementById('contactMsg') ? .value.trim();
+        const name  = document.getElementById('contactName')?.value.trim();
+        const email = document.getElementById('contactEmail')?.value.trim();
+        const msg   = document.getElementById('contactMsg')?.value.trim();
         if (!name || !email || !msg) { alert('Please fill all fields!'); return; }
         const successMsg = document.getElementById('successMsg');
         if (successMsg) successMsg.style.display = 'block';
         sendBtn.textContent = '✅ Sent!';
         setTimeout(() => {
-            document.getElementById('contactName').value = '';
-            // BUG FIX 1: Removed stray `a` character that was here
+            document.getElementById('contactName').value  = '';
             document.getElementById('contactEmail').value = '';
-            document.getElementById('contactMsg').value = '';
+            document.getElementById('contactMsg').value   = '';
             sendBtn.textContent = 'Send Message';
             if (successMsg) successMsg.style.display = 'none';
         }, 3000);
@@ -40,16 +40,12 @@ if (sendBtn) {
 
 let selectedTemplate = 'ai-dark';
 
-// BUG FIX 2: querySelector with hyphen in class name fails.
-// Use data-attribute based selection instead of `.template-card.${template}`
 function selectTemplate(template) {
     selectedTemplate = template;
     document.querySelectorAll('.template-card').forEach(card => card.classList.remove('selected'));
-    // BUG FIX 2: Use data-template attribute instead of class selector with hyphens
-    const chosen = document.querySelector(`.template-card[data-template="${template}"]`);
+    const chosen = document.querySelector(`.template-card.${template}`);
     if (chosen) chosen.classList.add('selected');
 
-    // Show/hide custom color picker
     const customOptions = document.getElementById('r-customOptions');
     if (customOptions) {
         customOptions.style.display = template === 'custom' ? 'block' : 'none';
@@ -63,76 +59,39 @@ function val(id) {
 
 const resumeThemes = {
     classic: {
-        bg: '#ffffff',
-        text: '#222222',
-        muted: '#555555',
-        accent: '#333333',
-        headerBg: '#f5f5f5',
-        border: '#dddddd',
-        tag: '#eeeeee',
-        tagText: '#333333',
-        fontHead: 'Georgia, serif',
-        fontBody: 'Arial, sans-serif',
+        bg: '#ffffff', text: '#222222', muted: '#555555',
+        accent: '#333333', headerBg: '#f5f5f5', border: '#dddddd',
+        tag: '#eeeeee', tagText: '#333333',
+        fontHead: 'Georgia, serif', fontBody: 'Arial, sans-serif',
     },
     'ai-dark': {
-        bg: '#0a0a14',
-        text: '#e8eaf6',
-        muted: '#7a7f9a',
-        accent: '#00ffff',
-        headerBg: '#111122',
-        border: 'rgba(0,255,255,0.2)',
-        tag: 'rgba(0,255,255,0.08)',
-        tagText: '#00ffff',
-        fontHead: "'Orbitron', sans-serif",
-        fontBody: "'Exo 2', sans-serif",
+        bg: '#0a0a14', text: '#e8eaf6', muted: '#7a7f9a',
+        accent: '#00ffff', headerBg: '#111122', border: 'rgba(0,255,255,0.2)',
+        tag: 'rgba(0,255,255,0.08)', tagText: '#00ffff',
+        fontHead: "'Orbitron', sans-serif", fontBody: "'Exo 2', sans-serif",
     },
     'blue-pro': {
-        bg: '#0a1628',
-        text: '#e8eaf6',
-        muted: '#8899aa',
-        accent: '#4499ff',
-        headerBg: '#0d1f3c',
-        border: 'rgba(0,100,255,0.2)',
-        tag: 'rgba(0,100,255,0.1)',
-        tagText: '#4499ff',
-        fontHead: "'Trebuchet MS', sans-serif",
-        fontBody: "'Calibri', sans-serif",
+        bg: '#0a1628', text: '#e8eaf6', muted: '#8899aa',
+        accent: '#4499ff', headerBg: '#0d1f3c', border: 'rgba(0,100,255,0.2)',
+        tag: 'rgba(0,100,255,0.1)', tagText: '#4499ff',
+        fontHead: "'Trebuchet MS', sans-serif", fontBody: "'Calibri', sans-serif",
     },
     'purple-neo': {
-        bg: '#0d0014',
-        text: '#e8eaf6',
-        muted: '#9b8ab8',
-        accent: '#bf00ff',
-        headerBg: '#130020',
-        border: 'rgba(191,0,255,0.2)',
-        tag: 'rgba(191,0,255,0.08)',
-        tagText: '#bf00ff',
-        fontHead: "'Orbitron', sans-serif",
-        fontBody: "'Exo 2', sans-serif",
+        bg: '#0d0014', text: '#e8eaf6', muted: '#9b8ab8',
+        accent: '#bf00ff', headerBg: '#130020', border: 'rgba(191,0,255,0.2)',
+        tag: 'rgba(191,0,255,0.08)', tagText: '#bf00ff',
+        fontHead: "'Orbitron', sans-serif", fontBody: "'Exo 2', sans-serif",
     },
-    // BUG FIX 3: 'custom' was null — gave it a default fallback object
-    'custom': {
-        bg: '#0a0a14',
-        text: '#e8eaf6',
-        muted: '#7a7f9a',
-        accent: '#00ffff',
-        headerBg: '#111122',
-        border: 'rgba(0,255,255,0.2)',
-        tag: 'rgba(0,255,255,0.08)',
-        tagText: '#00ffff',
-        fontHead: "'Orbitron', sans-serif",
-        fontBody: "'Exo 2', sans-serif",
-    },
+    'custom': null,
 };
 
 function getResumeTheme() {
     if (selectedTemplate === 'custom') {
-        const bg = document.getElementById('r-custom-bg') ? .value || '#0a0a14';
-        const accent = document.getElementById('r-custom-accent') ? .value || '#00ffff';
-        const text = document.getElementById('r-custom-text') ? .value || '#e8eaf6';
+        const bg     = document.getElementById('r-custom-bg')?.value    || '#0a0a14';
+        const accent = document.getElementById('r-custom-accent')?.value || '#00ffff';
+        const text   = document.getElementById('r-custom-text')?.value   || '#e8eaf6';
         return {
-            bg,
-            text,
+            bg, text,
             muted: text + 'aa',
             accent,
             headerBg: bg,
@@ -147,35 +106,35 @@ function getResumeTheme() {
 }
 
 function generateResumeHTML() {
-    const name = val('r-name');
-    const title = val('r-title');
-    const email = val('r-email');
-    const phone = val('r-phone');
-    const location = val('r-location');
-    const link = val('r-link');
+    const name    = val('r-name');
+    const title   = val('r-title');
+    const email   = val('r-email');
+    const phone   = val('r-phone');
+    const location= val('r-location');
+    const link    = val('r-link');
     const summary = val('r-summary');
-    const degree = val('r-degree');
+    const degree  = val('r-degree');
     const college = val('r-college');
-    const year = val('r-year');
-    const cgpa = val('r-cgpa');
-    const tech = val('r-tech');
-    const soft = val('r-soft');
-    const role = val('r-role');
+    const year    = val('r-year');
+    const cgpa    = val('r-cgpa');
+    const tech    = val('r-tech');
+    const soft    = val('r-soft');
+    const role    = val('r-role');
     const company = val('r-company');
     const expDesc = val('r-exp-desc');
-    const p1name = val('r-p1name');
-    const p1desc = val('r-p1desc');
-    const p2name = val('r-p2name');
-    const p2desc = val('r-p2desc');
+    const p1name  = val('r-p1name');
+    const p1desc  = val('r-p1desc');
+    const p2name  = val('r-p2name');
+    const p2desc  = val('r-p2desc');
 
     if (!name) { alert('Please enter your Full Name!'); return null; }
 
     const t = getResumeTheme();
 
     const needsGFont = ['ai-dark', 'purple-neo', 'custom'].includes(selectedTemplate);
-    const gfontLink = needsGFont ?
-        '<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">' :
-        '';
+    const gfontLink  = needsGFont
+        ? '<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">'
+        : '';
 
     const techTags = tech ? tech.split(',').map(s => `<span class="tag">${s.trim()}</span>`).join('') : '';
     const softTags = soft ? soft.split(',').map(s => `<span class="tag">${s.trim()}</span>`).join('') : '';
@@ -202,7 +161,7 @@ function generateResumeHTML() {
 ${gfontLink}
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:${t.fontBody}; background:${t.bg}; color:${t.text}; padding:40px 50px; line-height:1.6; }
+  body { font-family:${t.fontBody}; background:${t.bg}; color:${t.text}; padding:40px 50px; line-height:1.6; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .header { border-bottom:2px solid ${t.accent}; padding-bottom:20px; margin-bottom:28px; }
   .name { font-family:${t.fontHead}; font-size:2rem; color:${t.accent}; letter-spacing:2px; }
   .job-title { font-size:1rem; color:${t.muted}; margin-top:4px; }
@@ -221,6 +180,9 @@ ${gfontLink}
   .project-item { margin-bottom:14px; padding-left:12px; border-left:2px solid ${t.accent}; }
   .project-name { font-weight:600; color:${t.text}; font-size:0.95rem; }
   .project-desc { color:${t.muted}; font-size:0.88rem; margin-top:3px; line-height:1.6; }
+  @media print {
+    body { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  }
 </style>
 </head>
 <body>
@@ -275,36 +237,41 @@ ${p1name ? `
     return { name, html };
 }
 
+
+// ── RESUME PREVIEW ──
 const previewBtn = document.getElementById('previewBtn');
 if (previewBtn) {
     previewBtn.addEventListener('click', () => {
         const data = generateResumeHTML();
         if (!data) return;
-        // BUG FIX 4: Check if popup was blocked before accessing .document
         const tab = window.open();
-        if (!tab) { alert('Popup blocked! Please allow popups for this site.'); return; }
         tab.document.write(data.html);
         tab.document.close();
     });
 }
 
+
+// ── RESUME DOWNLOAD (iframe + browser print) ──
 const downloadBtn = document.getElementById('downloadBtn');
 if (downloadBtn) {
     downloadBtn.addEventListener('click', () => {
         const data = generateResumeHTML();
         if (!data) return;
-        // BUG FIX 5: Check if html2pdf library is loaded
-        if (typeof html2pdf === 'undefined') {
-            alert('PDF library not loaded. Please check your internet connection.');
-            return;
-        }
-        const el = document.createElement('div');
-        el.innerHTML = data.html;
-        html2pdf().set({
-            margin: 0.5,
-            filename: data.name + '_resume.pdf',
-            jsPDF: { format: 'a4' }
-        }).from(el).save();
+
+        const iframe = document.createElement('iframe');
+        iframe.style.cssText = 'position:fixed;left:-9999px;top:0;width:210mm;height:297mm;border:none;visibility:hidden;';
+        document.body.appendChild(iframe);
+
+        iframe.contentDocument.open();
+        iframe.contentDocument.write(data.html);
+        iframe.contentDocument.close();
+
+        // Wait for fonts and styles to load
+        setTimeout(() => {
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
+            setTimeout(() => document.body.removeChild(iframe), 1500);
+        }, 1200);
     });
 }
 
@@ -315,21 +282,11 @@ if (downloadBtn) {
 
 let selectedPortfolioTemplate = 'ai-dark';
 
-// BUG FIX 6: `el` can be undefined — added null check.
-// Also: same hyphen-in-class bug as resume. Use data-template attribute in HTML.
 function selectPortfolioTemplate(template, el) {
     selectedPortfolioTemplate = template;
     document.querySelectorAll('.p-template-card').forEach(c => c.classList.remove('selected'));
-    // If el is passed (from onclick="selectPortfolioTemplate('ai-dark', this)"), use it directly
-    // Otherwise fall back to data-attribute query
-    if (el) {
-        el.classList.add('selected');
-    } else {
-        const chosen = document.querySelector(`.p-template-card[data-template="${template}"]`);
-        if (chosen) chosen.classList.add('selected');
-    }
+    if (el) el.classList.add('selected');
 
-    // Show/hide custom color picker
     const customOptions = document.getElementById('p-customOptions');
     if (customOptions) {
         customOptions.style.display = template === 'custom' ? 'block' : 'none';
@@ -366,13 +323,7 @@ const portfolioThemes = {
         tag: 'rgba(191,0,255,0.08)', tagText: '#bf00ff', cardBg: 'rgba(191,0,255,0.04)',
         fontHead: "'Orbitron', sans-serif", fontBody: "'Exo 2', sans-serif",
     },
-    // BUG FIX 7: 'custom' was null — gave it a default fallback object
-    'custom': {
-        bg: '#0a0a14', text: '#e8eaf6', muted: '#7a7f9a',
-        accent: '#00ffff', headerBg: '#111122', border: 'rgba(0,255,255,0.2)',
-        tag: 'rgba(0,255,255,0.08)', tagText: '#00ffff', cardBg: 'rgba(0,255,255,0.04)',
-        fontHead: "'Orbitron', sans-serif", fontBody: "'Exo 2', sans-serif",
-    },
+    'custom': null,
 };
 
 function getPortfolioTheme() {
@@ -437,7 +388,7 @@ function generatePortfolioHTML() {
 ${gfontLink}
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:${t.fontBody}; background:${t.bg}; color:${t.text}; line-height:1.6; }
+  body { font-family:${t.fontBody}; background:${t.bg}; color:${t.text}; line-height:1.6; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .hero { background:${t.headerBg}; border-bottom:1px solid ${t.border}; padding:60px 50px 50px; display:flex; align-items:center; gap:30px; }
   .avatar { width:80px; height:80px; border-radius:50%; background:${t.tag}; border:2px solid ${t.accent}; display:flex; align-items:center; justify-content:center; font-family:${t.fontHead}; font-size:1.4rem; color:${t.accent}; flex-shrink:0; }
   .hero-text .name { font-family:${t.fontHead}; font-size:1.8rem; color:${t.accent}; letter-spacing:2px; }
@@ -458,6 +409,9 @@ ${gfontLink}
   .proj-desc { color:${t.muted}; font-size:0.88rem; line-height:1.7; }
   footer { text-align:center; padding:24px; border-top:1px solid ${t.border}; color:${t.muted}; font-size:0.85rem; }
   footer span { color:${t.accent}; }
+  @media print {
+    body { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  }
 </style>
 </head>
 <body>
@@ -518,35 +472,40 @@ ${gfontLink}
     return { name, html };
 }
 
+
+// ── PORTFOLIO PREVIEW ──
 const pPreviewBtn = document.getElementById('p-previewBtn');
 if (pPreviewBtn) {
     pPreviewBtn.addEventListener('click', () => {
         const data = generatePortfolioHTML();
         if (!data) return;
-        // BUG FIX 8: Popup block check
         const tab = window.open();
-        if (!tab) { alert('Popup blocked! Please allow popups for this site.'); return; }
         tab.document.write(data.html);
         tab.document.close();
     });
 }
 
+
+// ── PORTFOLIO DOWNLOAD (iframe + browser print) ──
 const pDownloadBtn = document.getElementById('p-downloadBtn');
 if (pDownloadBtn) {
     pDownloadBtn.addEventListener('click', () => {
         const data = generatePortfolioHTML();
         if (!data) return;
-        // BUG FIX 9: Check if html2pdf library is loaded
-        if (typeof html2pdf === 'undefined') {
-            alert('PDF library not loaded. Please check your internet connection.');
-            return;
-        }
-        const el = document.createElement('div');
-        el.innerHTML = data.html;
-        html2pdf().set({
-            margin: 0.5,
-            filename: data.name + '_portfolio.pdf',
-            jsPDF: { format: 'a4' }
-        }).from(el).save();
+
+        const iframe = document.createElement('iframe');
+        iframe.style.cssText = 'position:fixed;left:-9999px;top:0;width:210mm;height:297mm;border:none;visibility:hidden;';
+        document.body.appendChild(iframe);
+
+        iframe.contentDocument.open();
+        iframe.contentDocument.write(data.html);
+        iframe.contentDocument.close();
+
+        // Wait for fonts and styles to load
+        setTimeout(() => {
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
+            setTimeout(() => document.body.removeChild(iframe), 1500);
+        }, 1200);
     });
 }
